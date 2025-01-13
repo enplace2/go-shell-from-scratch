@@ -11,8 +11,15 @@ var _ = fmt.Fprint
 
 func main() {
 	// Uncomment this block to pass the first stage
-	fmt.Fprint(os.Stdout, "$ ")
+	fmt.Print("$ ")
 
 	// Wait for user input
-	bufio.NewReader(os.Stdin).ReadString('\n')
+	text, err := bufio.NewReader(os.Stdin).ReadString('\n')
+
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Error reading input:", err)
+	}
+
+	fmt.Printf("%s: command not found", text[:len(text)-1])
+
 }
