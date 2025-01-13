@@ -19,11 +19,20 @@ func main() {
 		// Wait for user input
 		text, err := reader.ReadString('\n')
 
+		trimmed := text[:len(text)-1]
+
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Error reading input:", err)
 		}
+		if trimmed == "" {
+			continue
+		}
 
-		fmt.Printf("%s: command not found\n", text[:len(text)-1])
+		if trimmed == "exit 0" {
+			os.Exit(0)
+		}
+
+		fmt.Printf("%s: command not found\n", trimmed)
 	}
 
 }
